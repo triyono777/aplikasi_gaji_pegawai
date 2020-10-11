@@ -16,6 +16,8 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
         itemCount: 10,
         itemBuilder: (ctx, index) => ListTile(
           title: Text('Nama'),
+          subtitle: Text('umur'),
+          trailing: Text('Gaji'),
         ),
       ),
     );
