@@ -26,6 +26,10 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text('List Pegawai'),
       ),
