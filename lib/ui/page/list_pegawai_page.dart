@@ -62,8 +62,7 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
                   },
                   child: Dismissible(
                     key: UniqueKey(),
-                    direction:
-                        DismissDirection.endToStart, //ATUR ARAH DISMISSNYA
+                    direction: DismissDirection.endToStart,
                     //BUAT KONFIRMASI KETIKA USER INGIN MENGHAPUS DATA
                     confirmDismiss: (DismissDirection direction) async {
                       //TAMPILKAN DIALOG KONFIRMASI
@@ -133,14 +132,11 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
     );
   }
 
-  Future<ListPegawaiModel> getPegawai() async {
+  getPegawai() async {
     PegawaiController().getListPegawai().then((value) {
       setState(() {
         listPegawaiModel = value;
       });
-      print(listPegawaiModel.data[0].employeeName);
-      return listPegawaiModel;
     });
-    return listPegawaiModel;
   }
 }
