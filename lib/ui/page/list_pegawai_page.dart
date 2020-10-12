@@ -1,5 +1,6 @@
 import 'package:aplikasi_gaji_pegawai/controllers/pegawai_controller.dart';
 import 'package:aplikasi_gaji_pegawai/models/list_pegawai_model.dart';
+import 'package:aplikasi_gaji_pegawai/ui/page/add_pegawai.dart';
 import 'package:flutter/material.dart';
 
 class ListPegawaiPage extends StatefulWidget {
@@ -9,13 +10,6 @@ class ListPegawaiPage extends StatefulWidget {
 
 class _ListPegawaiPageState extends State<ListPegawaiPage> {
   ListPegawaiModel listPegawaiModel;
-  getPegawai() {
-    PegawaiController().getListPegawai().then((value) {
-      setState(() {
-        listPegawaiModel = value;
-      });
-    });
-  }
 
   @override
   void initState() {
@@ -27,26 +21,40 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(AddPegawaiPage.routeName);
+        },
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
         title: Text('List Pegawai'),
       ),
-      body: FutureBuilder(
-        builder: (ctx, snapshot) => snapshot.connectionState ==
-                ConnectionState.waiting
-            ? Center(child: Text('loading'))
-            : ListView.builder(
-                itemCount: listPegawaiModel.data.length,
-                itemBuilder: (ctx, index) => ListTile(
-                  title: Text('${listPegawaiModel.data[index].employeeName}'),
-                  subtitle: Text('${listPegawaiModel.data[index].employeeAge}'),
-                  trailing:
-                      Text('${listPegawaiModel.data[index].employeeSalary}'),
-                ),
+      body: listPegawaiModel == null
+          ? Center(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                Text('loading'),
+              ],
+            ))
+          : ListView.builder(
+              itemCount: listPegawaiModel.data.length,
+              itemBuilder: (ctx, index) => ListTile(
+                title: Text('${listPegawaiModel.data[index].employeeName}'),
+                subtitle: Text('${listPegawaiModel.data[index].employeeAge}'),
+                trailing:
+                    Text('${listPegawaiModel.data[index].employeeSalary}'),
               ),
-      ),
+            ),
     );
+  }
+
+  getPegawai() {
+    PegawaiController().getListPegawai().then((value) {
+      setState(() {
+        listPegawaiModel = value;
+      });
+    });
   }
 }
