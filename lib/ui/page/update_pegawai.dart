@@ -1,6 +1,7 @@
 import 'package:aplikasi_gaji_pegawai/controllers/pegawai_controller.dart';
 import 'package:aplikasi_gaji_pegawai/ui/widgets/template_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UpdatePage extends StatefulWidget {
   static const String routeName = '/UpdatePage';
@@ -21,6 +22,7 @@ class _UpdatePageState extends State<UpdatePage> {
   TextEditingController umurController = TextEditingController();
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
 
   getdata() {
     setState(() {
@@ -43,49 +45,54 @@ class _UpdatePageState extends State<UpdatePage> {
       appBar: AppBar(
         title: Text('Update Pegawai'),
       ),
-      body: Column(
-        children: [
-          TemplateTextFormField(
-            textEditingController: namaController,
-            label: 'Nama',
-            icon: Icons.person,
-          ),
-          TemplateTextFormField(
-            keyboardType: TextInputType.number,
-            textEditingController: umurController,
-            label: 'Umur',
-            icon: Icons.cake,
-          ),
-          TemplateTextFormField(
-            keyboardType: TextInputType.number,
-            textEditingController: gajiController,
-            label: 'Gaji',
-            icon: Icons.monetization_on,
-          ),
-          RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TemplateTextFormField(
+              textEditingController: namaController,
+              label: 'Nama',
+              icon: Icons.person,
             ),
-            color: Theme.of(context).primaryColor,
-            textColor: Colors.white,
-            onPressed: () {
-              PegawaiController()
-                  .updatePegawai(
-                id: widget.id,
-                nama: namaController.text,
-                gaji: gajiController.text,
-                umur: umurController.text,
-              )
-                  .then((value) {
-                value == true
-                    ? Navigator.of(context).pop(true)
-                    : _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(content: Text('Gagal Update Pegawai')));
-              });
-            },
-            child: Text('Update Pegawai'),
-          ),
-        ],
+            TemplateTextFormField(
+              keyboardType: TextInputType.number,
+              textEditingController: umurController,
+              label: 'Umur',
+              icon: Icons.cake,
+            ),
+            TemplateTextFormField(
+              keyboardType: TextInputType.number,
+              textEditingController: gajiController,
+              label: 'Gaji',
+              icon: Icons.monetization_on,
+            ),
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              color: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  Provider.of<PegawaiController>(context, listen: false)
+                      .updatePegawai(
+                    id: widget.id,
+                    nama: namaController.text,
+                    gaji: gajiController.text,
+                    umur: umurController.text,
+                  )
+                      .then((value) {
+                    value == true
+                        ? Navigator.of(context).pop(true)
+                        : _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(content: Text('Gagal Update Pegawai')));
+                  });
+                }
+              },
+              child: Text('Update Pegawai'),
+            ),
+          ],
+        ),
       ),
     );
   }

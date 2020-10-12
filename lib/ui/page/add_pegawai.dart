@@ -1,6 +1,7 @@
 import 'package:aplikasi_gaji_pegawai/controllers/pegawai_controller.dart';
 import 'package:aplikasi_gaji_pegawai/ui/widgets/template_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddPegawaiPage extends StatefulWidget {
   static const routeName = '/addPegawaiPage';
@@ -51,7 +52,7 @@ class _AddPegawaiPageState extends State<AddPegawaiPage> {
               textColor: Colors.white,
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  PegawaiController()
+                  Provider.of<PegawaiController>(context, listen: false)
                       .addPegawai(
                     nama: namaController.text,
                     gaji: gajiController.text,
@@ -59,7 +60,7 @@ class _AddPegawaiPageState extends State<AddPegawaiPage> {
                   )
                       .then((value) {
                     value == true
-                        ? Navigator.of(context).pop(true)
+                        ? Navigator.of(context).pop()
                         : _scaffoldKey.currentState.showSnackBar(
                             SnackBar(content: Text('Gagal Add Pegawai')));
                   });
