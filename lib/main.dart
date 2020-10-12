@@ -1,5 +1,6 @@
 import 'package:aplikasi_gaji_pegawai/ui/page/add_pegawai.dart';
 import 'package:aplikasi_gaji_pegawai/ui/page/list_pegawai_page.dart';
+import 'package:aplikasi_gaji_pegawai/ui/page/update_pegawai.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       home: ListPegawaiPage(),
       routes: {
         AddPegawaiPage.routeName: (ctx) => AddPegawaiPage(),
+        UpdatePage.routeName: (ctx) => UpdatePage(),
       },
     );
   }
