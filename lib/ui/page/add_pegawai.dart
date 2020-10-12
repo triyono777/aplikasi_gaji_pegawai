@@ -14,6 +14,7 @@ class _AddPegawaiPageState extends State<AddPegawaiPage> {
   TextEditingController umurController = TextEditingController();
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,48 +22,53 @@ class _AddPegawaiPageState extends State<AddPegawaiPage> {
       appBar: AppBar(
         title: Text('Add Pegawai'),
       ),
-      body: Column(
-        children: [
-          TemplateTextField(
-            textEditingController: namaController,
-            label: 'Nama',
-            icon: Icons.person,
-          ),
-          TemplateTextField(
-            keyboardType: TextInputType.number,
-            textEditingController: umurController,
-            label: 'Umur',
-            icon: Icons.cake,
-          ),
-          TemplateTextField(
-            keyboardType: TextInputType.number,
-            textEditingController: gajiController,
-            label: 'Gaji',
-            icon: Icons.monetization_on,
-          ),
-          RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TemplateTextField(
+              textEditingController: namaController,
+              label: 'Nama',
+              icon: Icons.person,
             ),
-            color: Theme.of(context).primaryColor,
-            textColor: Colors.white,
-            onPressed: () {
-              PegawaiController()
-                  .addPegawai(
-                nama: namaController.text,
-                gaji: gajiController.text,
-                umur: umurController.text,
-              )
-                  .then((value) {
-                value == true
-                    ? Navigator.of(context).pop(true)
-                    : _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(content: Text('Gagal Add Pegawai')));
-              });
-            },
-            child: Text('Add Pegawai'),
-          ),
-        ],
+            TemplateTextField(
+              keyboardType: TextInputType.number,
+              textEditingController: umurController,
+              label: 'Umur',
+              icon: Icons.cake,
+            ),
+            TemplateTextField(
+              keyboardType: TextInputType.number,
+              textEditingController: gajiController,
+              label: 'Gaji',
+              icon: Icons.monetization_on,
+            ),
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              color: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  PegawaiController()
+                      .addPegawai(
+                    nama: namaController.text,
+                    gaji: gajiController.text,
+                    umur: umurController.text,
+                  )
+                      .then((value) {
+                    value == true
+                        ? Navigator.of(context).pop(true)
+                        : _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(content: Text('Gagal Add Pegawai')));
+                  });
+                }
+              },
+              child: Text('Add Pegawai'),
+            ),
+          ],
+        ),
       ),
     );
   }

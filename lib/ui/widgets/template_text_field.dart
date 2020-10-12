@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TemplateTextField extends StatelessWidget {
+class TemplateTextFormField extends StatelessWidget {
   final String label;
   final IconData icon;
   final TextEditingController textEditingController;
   final TextInputType keyboardType;
 
-  const TemplateTextField({
+  const TemplateTextFormField({
     Key key,
     this.label = 'label',
     this.icon = Icons.label,
@@ -18,7 +18,13 @@ class TemplateTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: TextField(
+      child: TextFormField(
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return 'Inputan tidak boleh kosong';
+          }
+          return null;
+        },
         controller: textEditingController,
         keyboardType: keyboardType,
         decoration: InputDecoration(
