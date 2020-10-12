@@ -4,12 +4,14 @@ class TemplateTextField extends StatelessWidget {
   final String label;
   final IconData icon;
   final TextEditingController textEditingController;
+  final TextInputType keyboardType;
 
   const TemplateTextField({
     Key key,
     this.label = 'label',
     this.icon = Icons.label,
     this.textEditingController,
+    this.keyboardType = TextInputType.text,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,7 @@ class TemplateTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: TextField(
         controller: textEditingController,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
             labelText: label,
             hintText: 'Masukkan $label disini',

@@ -2,13 +2,12 @@ import 'package:aplikasi_gaji_pegawai/controllers/pegawai_controller.dart';
 import 'package:aplikasi_gaji_pegawai/ui/widgets/template_text_field.dart';
 import 'package:flutter/material.dart';
 
-class AddPegawaiPage extends StatefulWidget {
-  static const routeName = '/addPegawaiPage';
+class UpdatePage extends StatefulWidget {
   @override
-  _AddPegawaiPageState createState() => _AddPegawaiPageState();
+  _UpdatePageState createState() => _UpdatePageState();
 }
 
-class _AddPegawaiPageState extends State<AddPegawaiPage> {
+class _UpdatePageState extends State<UpdatePage> {
   TextEditingController namaController = TextEditingController();
   TextEditingController gajiController = TextEditingController();
   TextEditingController umurController = TextEditingController();
