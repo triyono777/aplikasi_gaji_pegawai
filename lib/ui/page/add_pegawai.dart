@@ -26,18 +26,18 @@ class _AddPegawaiPageState extends State<AddPegawaiPage> {
         key: _formKey,
         child: Column(
           children: [
-            TemplateTextField(
+            TemplateTextFormField(
               textEditingController: namaController,
               label: 'Nama',
               icon: Icons.person,
             ),
-            TemplateTextField(
+            TemplateTextFormField(
               keyboardType: TextInputType.number,
               textEditingController: umurController,
               label: 'Umur',
               icon: Icons.cake,
             ),
-            TemplateTextField(
+            TemplateTextFormField(
               keyboardType: TextInputType.number,
               textEditingController: gajiController,
               label: 'Gaji',

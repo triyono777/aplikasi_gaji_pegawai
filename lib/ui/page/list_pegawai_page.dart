@@ -134,16 +134,6 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
   }
 
   Future<ListPegawaiModel> getPegawai() async {
-    var data = [
-      ListPegawaiModel(data: [
-        DataListPegawaiModel(
-          employeeAge: '1',
-          employeeName: '2',
-          employeeSalary: '4',
-          id: '1',
-        )
-      ])
-    ];
     PegawaiController().getListPegawai().then((value) {
       setState(() {
         listPegawaiModel = value;

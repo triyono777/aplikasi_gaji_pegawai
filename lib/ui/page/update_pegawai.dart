@@ -45,18 +45,18 @@ class _UpdatePageState extends State<UpdatePage> {
       ),
       body: Column(
         children: [
-          TemplateTextField(
+          TemplateTextFormField(
             textEditingController: namaController,
             label: 'Nama',
             icon: Icons.person,
           ),
-          TemplateTextField(
+          TemplateTextFormField(
             keyboardType: TextInputType.number,
             textEditingController: umurController,
             label: 'Umur',
             icon: Icons.cake,
           ),
-          TemplateTextField(
+          TemplateTextFormField(
             keyboardType: TextInputType.number,
             textEditingController: gajiController,
             label: 'Gaji',
