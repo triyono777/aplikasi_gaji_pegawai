@@ -60,12 +60,72 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
                         ))
                         .then((value) => getPegawai());
                   },
-                  child: ListTile(
-                    title: Text('${listPegawaiModel.data[index].employeeName}'),
-                    subtitle:
-                        Text('${listPegawaiModel.data[index].employeeAge}'),
-                    trailing:
-                        Text('${listPegawaiModel.data[index].employeeSalary}'),
+                  child: Dismissible(
+                    key: UniqueKey(),
+                    direction:
+                        DismissDirection.endToStart, //ATUR ARAH DISMISSNYA
+                    //BUAT KONFIRMASI KETIKA USER INGIN MENGHAPUS DATA
+                    confirmDismiss: (DismissDirection direction) async {
+                      //TAMPILKAN DIALOG KONFIRMASI
+                      final bool res = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            //DENGAN MENGGUNAKAN ALERT DIALOG
+                            return AlertDialog(
+                              title: Text('Konfirmasi'),
+                              content: Text('Kamu Yakin?'),
+                              actions: <Widget>[
+                                //KITA SET DUA BUAH TOMBOL UNTUK HAPUS DAN CANCEL DENGAN VALUE BOOLEAN
+                                FlatButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true),
+                                  child: Text('HAPUS'),
+                                ),
+                                FlatButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: Text('BATALKAN'),
+                                )
+                              ],
+                            );
+                          });
+                      return res;
+                    },
+                    onDismissed: (value) {
+                      //
+                      PegawaiController()
+                          .deletePegawai(id: listPegawaiModel.data[index].id)
+                          .then((value) => getPegawai());
+                    },
+                    background: Container(
+                      color: Colors.red,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      child: Card(
+                        child: ListTile(
+                          title: Text(
+                              'Nama: ${listPegawaiModel.data[index].employeeName}'),
+                          subtitle: Text(
+                              'Umur: ${listPegawaiModel.data[index].employeeAge}'),
+                          trailing: Text(
+                              'Rp ${listPegawaiModel.data[index].employeeSalary}'),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
