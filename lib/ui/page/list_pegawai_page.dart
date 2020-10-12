@@ -29,7 +29,7 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text('List Pegawai'),
+        title: Text('List Pegawais '),
       ),
       body: listPegawaiModel == null
           ? Center(
