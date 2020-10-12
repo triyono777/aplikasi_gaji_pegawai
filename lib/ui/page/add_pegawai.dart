@@ -9,9 +9,9 @@ class AddPegawaiPage extends StatefulWidget {
 }
 
 class _AddPegawaiPageState extends State<AddPegawaiPage> {
-  TextEditingController nama = TextEditingController();
-  TextEditingController gaji = TextEditingController();
-  TextEditingController umur = TextEditingController();
+  TextEditingController namaController = TextEditingController();
+  TextEditingController gajiController = TextEditingController();
+  TextEditingController umurController = TextEditingController();
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   @override
@@ -24,17 +24,17 @@ class _AddPegawaiPageState extends State<AddPegawaiPage> {
       body: Column(
         children: [
           TemplateTextField(
-            textEditingController: nama,
+            textEditingController: namaController,
             label: 'Nama',
             icon: Icons.person,
           ),
           TemplateTextField(
-            textEditingController: nama,
+            textEditingController: umurController,
             label: 'Umur',
             icon: Icons.cake,
           ),
           TemplateTextField(
-            textEditingController: nama,
+            textEditingController: gajiController,
             label: 'Gaji',
             icon: Icons.monetization_on,
           ),
@@ -47,13 +47,13 @@ class _AddPegawaiPageState extends State<AddPegawaiPage> {
             onPressed: () {
               PegawaiController()
                   .addPegawai(
-                nama: nama.text,
-                gaji: gaji.text,
-                umur: umur.text,
+                nama: namaController.text,
+                gaji: gajiController.text,
+                umur: umurController.text,
               )
                   .then((value) {
                 value == true
-                    ? Navigator.of(context).pop()
+                    ? Navigator.of(context).pop(true)
                     : _scaffoldKey.currentState.showSnackBar(
                         SnackBar(content: Text('Gagal Add Pegawai')));
               });

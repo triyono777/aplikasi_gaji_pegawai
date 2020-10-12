@@ -21,8 +21,10 @@ class _ListPegawaiPageState extends State<ListPegawaiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(AddPegawaiPage.routeName);
+        onPressed: () async {
+          await Navigator.of(context)
+              .pushNamed(AddPegawaiPage.routeName)
+              .then((value) => getPegawai());
         },
         child: Icon(Icons.add),
       ),
